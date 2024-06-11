@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Dejan.Ristevski\\Documents\\aspnet-mock\\aspnet-mock.csproj": {}
+    "C:\\Users\\Dejan.Ristevski\\Documents\\aspnet_mock\\aspnet_mock.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Dejan.Ristevski\\Documents\\aspnet-mock\\aspnet-mock.csproj": {
+    "C:\\Users\\Dejan.Ristevski\\Documents\\aspnet_mock\\aspnet_mock.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Dejan.Ristevski\\Documents\\aspnet-mock\\aspnet-mock.csproj",
-        "projectName": "aspnet-mock",
-        "projectPath": "C:\\Users\\Dejan.Ristevski\\Documents\\aspnet-mock\\aspnet-mock.csproj",
+        "projectUniqueName": "C:\\Users\\Dejan.Ristevski\\Documents\\aspnet_mock\\aspnet_mock.csproj",
+        "projectName": "aspnet_mock",
+        "projectPath": "C:\\Users\\Dejan.Ristevski\\Documents\\aspnet_mock\\aspnet_mock.csproj",
         "packagesPath": "C:\\Users\\Dejan.Ristevski\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Dejan.Ristevski\\Documents\\aspnet-mock\\obj\\",
+        "outputPath": "C:\\Users\\Dejan.Ristevski\\Documents\\aspnet_mock\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Dejan.Ristevski\\AppData\\Roaming\\NuGet\\NuGet.Config"

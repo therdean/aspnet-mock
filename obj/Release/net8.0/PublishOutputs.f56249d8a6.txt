@@ -1,0 +1,7 @@
+C:\Users\Dejan.Ristevski\Documents\aspnet_mock\bin\Release\net8.0\publish\aspnet_mock.exe
+C:\Users\Dejan.Ristevski\Documents\aspnet_mock\bin\Release\net8.0\publish\appsettings.Development.json
+C:\Users\Dejan.Ristevski\Documents\aspnet_mock\bin\Release\net8.0\publish\appsettings.json
+C:\Users\Dejan.Ristevski\Documents\aspnet_mock\bin\Release\net8.0\publish\aspnet_mock.dll
+C:\Users\Dejan.Ristevski\Documents\aspnet_mock\bin\Release\net8.0\publish\aspnet_mock.deps.json
+C:\Users\Dejan.Ristevski\Documents\aspnet_mock\bin\Release\net8.0\publish\aspnet_mock.runtimeconfig.json
+C:\Users\Dejan.Ristevski\Documents\aspnet_mock\bin\Release\net8.0\publish\aspnet_mock.pdb
