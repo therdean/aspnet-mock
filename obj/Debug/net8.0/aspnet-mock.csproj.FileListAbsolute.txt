@@ -28,3 +28,4 @@ C:\Users\Dejan.Ristevski\Documents\aspnet-mock\obj\Debug\net8.0\refint\aspnet-mo
 C:\Users\Dejan.Ristevski\Documents\aspnet-mock\obj\Debug\net8.0\aspnet-mock.pdb
 C:\Users\Dejan.Ristevski\Documents\aspnet-mock\obj\Debug\net8.0\aspnet-mock.genruntimeconfig.cache
 C:\Users\Dejan.Ristevski\Documents\aspnet-mock\obj\Debug\net8.0\ref\aspnet-mock.dll
+C:\Users\Dejan.Ristevski\Documents\aspnet-mock\obj\Debug\net8.0\aspnet-mock.sourcelink.json
