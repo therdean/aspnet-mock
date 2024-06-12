@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("aspnet_mock")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b440abfe70de3a331f67aefe3f9c20a6c034a8bd")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+13c365409cc6d6eaec94c51dd4a5000793069a23")]
 [assembly: System.Reflection.AssemblyProductAttribute("aspnet_mock")]
 [assembly: System.Reflection.AssemblyTitleAttribute("aspnet_mock")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
