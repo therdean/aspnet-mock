@@ -23,14 +23,12 @@ pipeline {
                     def date = new Date().format('yyyyMMdd_HHmmss')
                     def backupDir = "C:\\Users\\Dejan.Ristevski\\Desktop\\aspnet_app\\backups\\backup_${date}"
                     bat "mkdir ${backupDir}"
-                    bat "xcopy C:\\Users\\Dejan.Ristevski\\Desktop\\aspnet_app\\publish ${backupDir} /E /I"
+                    bat "xcopy C:\\Users\\Dejan.Ristevski\\Desktop\\aspnet_app\\publish\\* ${backupDir} /E /I"
                 }
             }
         }
     }
 }
 
-// def date = new Date().format('yyyyMMdd_HHmmss')
-// def backupDir = "C:\\Users\\Dejan.Ristevski\\Desktop\\aspnet_app\\backups\\backup_${date}"
-// bat "mkdir ${backupDir}"
-// bat "robocopy C:\\Users\\Dejan.Ristevski\\Desktop\\aspnet_app\\publish ${backupDir} /E /S /COPYALL"
+
+// robocopy C:\\Users\\Dejan.Ristevski\\Desktop\\aspnet_app\\publish ${backupDir} /E /S /COPYALL
