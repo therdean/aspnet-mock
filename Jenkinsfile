@@ -23,7 +23,7 @@ pipeline {
                     def date = new Date().format('yyyyMMdd_HHmmss')
                     def backupDir = "C:\\Users\\Dejan.Ristevski\\Desktop\\aspnet_app\\backups\\backup_${date}"
                     bat "mkdir ${backupDir}"
-                    bat "robocopy C:\Users\Dejan.Ristevski\Desktop\aspnet_app\publish C:\Users\Dejan.Ristevski\Desktop\aspnet_app\backups\backup_20240612_162358 /E /COPY:DAT /XD C:\Users\Dejan.Ristevski\Desktop\aspnet_app\publish"
+                    bat "robocopy C:\\Users\\Dejan.Ristevski\\Desktop\\aspnet_app\\publish C:\\Users\\Dejan.Ristevski\\Desktop\\aspnet_app\\backups\\backup_20240612_162358 /E /COPY:DAT /XD C:\\Users\\Dejan.Ristevski\\Desktop\\aspnet_app\\publish"
                 }
             }
         }
