@@ -14,16 +14,16 @@ pipeline {
         }
         stage('Publish') {
             steps {
-                bat 'dotnet publish --configuration Release --output C:\\publish'
+                bat 'dotnet publish --configuration Release --output C:\\Users\\Dejan.Ristevski\\Desktop\\aspnet_app\\publish'
             }
         }
         stage('Backup') {
             steps {
                 script {
                     def date = new Date().format('yyyyMMdd_HHmmss')
-                    def backupDir = "C:\\backups-aspnet-core-mock\\aspnet_mock_app_backup_${date}"
+                    def backupDir = "C:\\Users\\Dejan.Ristevski\\Desktop\\aspnet_app\\backups\\backup_${date}"
                     bat "mkdir ${backupDir}"
-                    bat "xcopy C:\\publish ${backupDir} /E /I"
+                    bat "robocopy C:\\Users\\Dejan.Ristevski\\Desktop\\aspnet_app\\publish ${backupDir} /E /S /COPYALL"
                 }
             }
         }
