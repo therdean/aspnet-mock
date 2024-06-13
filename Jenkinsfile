@@ -70,7 +70,7 @@ pipeline {
                 if (env.NEW_VERSION) {
                     bat "git tag -a v${env.NEW_VERSION} -m 'Version ${env.NEW_VERSION}'"
                 } else {
-                    bat "git tag -a v9.9 -m 'Version 9.9'"
+                    bat 'git tag -a "v9.9" -m "Version 9.9"'
                 }
 
                 withCredentials([usernamePassword(credentialsId: '1cacd813-213e-4683-abbb-054b782a5e74', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
