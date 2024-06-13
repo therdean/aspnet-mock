@@ -61,17 +61,17 @@ pipeline {
     post {
         success {
             script {
-                sh 'git config user.email "dejanristevski96@gmail.com"'
-                sh 'git config user.name "therdean"'
+                bat 'git config user.email "dejanristevski96@gmail.com"'
+                bat 'git config user.name "therdean"'
 
-                sh 'git add VERSION'
-                sh "git commit -m 'Increment version to ${env.NEW_VERSION}'"
+                bat 'git add VERSION'
+                bat "git commit -m 'Increment version to ${env.NEW_VERSION}'"
 
-                sh "git tag -a v${env.NEW_VERSION} -m 'Version ${env.NEW_VERSION}'"
+                bat "git tag -a v${env.NEW_VERSION} -m 'Version ${env.NEW_VERSION}'"
 
                 withCredentials([usernamePassword(credentialsId: 'your-credentials-id', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-                    sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/therdean/aspnet-mock.git main"
-                    sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/therdean/aspnet-mock.git --tags"
+                    bat "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/therdean/aspnet-mock.git main"
+                    bat "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/therdean/aspnet-mock.git --tags"
                 }
             }
         }
