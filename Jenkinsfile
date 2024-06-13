@@ -77,14 +77,6 @@ pipeline {
                     env.GIT_SSH_COMMAND = "C:\\Program Files\\Git\\usr\\bin\\ssh.exe -i ${SSH_KEY} -o StrictHostKeyChecking=no"
 
                     bat '''
-                        git config user.email "dejanristevski96@gmail.com"
-                        git config user.name "therdean"
-
-                        git add VERSION
-                        git commit -m "Updated version"
-
-                        git tag -a v${NEW_VERSION} -m "Version ${NEW_VERSION}"
-
                         set GIT_SSH_COMMAND=%GIT_SSH_COMMAND%
                         git push origin main
                         git push origin --tags
