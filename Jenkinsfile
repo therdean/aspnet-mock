@@ -67,7 +67,11 @@ pipeline {
                 bat 'git add VERSION'
                 bat 'git commit -m "Updated version"'
 
-                bat "git tag -a v${env.NEW_VERSION} -m 'Version ${env.NEW_VERSION}'"
+                if (env.NEW_VERSION) {
+                    bat "git tag -a v${env.NEW_VERSION} -m 'Version ${env.NEW_VERSION}'"
+                } else {
+                    bat "git tag -a v999 -m 'Version 999'"
+                }
 
                 withCredentials([usernamePassword(credentialsId: '1cacd813-213e-4683-abbb-054b782a5e74', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                     bat "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/therdean/aspnet-mock.git main"
