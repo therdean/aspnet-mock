@@ -45,6 +45,7 @@ pipeline {
                 bat 'dotnet publish --configuration Release --output C:\\Users\\Dejan.Ristevski\\Desktop\\aspnet_app\\publish'
             }
         }
+
         stage('Backup') {
             steps {
                 script {
@@ -55,25 +56,24 @@ pipeline {
                 }
             }
         }
+    }
 
-            post {
-            success {
-                script {
-                    sh 'git config user.email "dejanristevski96@gmail.com"'
-                    sh 'git config user.name "therdean"'
+    post {
+        success {
+            script {
+                sh 'git config user.email "dejanristevski96@gmail.com"'
+                sh 'git config user.name "therdean"'
 
-                    sh 'git add VERSION'
-                    sh "git commit -m 'Increment version to ${env.NEW_VERSION}'"
+                sh 'git add VERSION'
+                sh "git commit -m 'Increment version to ${env.NEW_VERSION}'"
 
-                    sh "git tag -a v${env.NEW_VERSION} -m 'Version ${env.NEW_VERSION}'"
+                sh "git tag -a v${env.NEW_VERSION} -m 'Version ${env.NEW_VERSION}'"
 
-                    withCredentials([usernamePassword(credentialsId: 'your-credentials-id', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-                        sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/therdean/aspnet-mock.git main"
-                        sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/therdean/aspnet-mock.git --tags"
-                    }
+                withCredentials([usernamePassword(credentialsId: 'your-credentials-id', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+                    sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/therdean/aspnet-mock.git main"
+                    sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/therdean/aspnet-mock.git --tags"
                 }
             }
         }
     }
 }
-// robocopy C:\\Users\\Dejan.Ristevski\\Desktop\\aspnet_app\\publish ${backupDir} /e
