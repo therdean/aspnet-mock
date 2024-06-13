@@ -1,17 +1,45 @@
 pipeline {
     agent any
 
+    environment {
+        VERSION_FILE = 'VERSION'
+        NEW_VERSION = ''
+        REPO_URL = 'https://github.com/therdean/aspnet-mock.git'
+    }
+
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/therdean/aspnet-mock.git'
+                git branch: 'main', url: env.REPO_URL
             }
         }
+
+        stage('Read and Increment Version') {
+            steps {
+                script {
+                    def versionFile = readFile env.VERSION_FILE
+                    def versionParts = versionFile.trim().split('\\.')
+                    def major = versionParts[0].toInteger()
+                    def minor = versionParts[1].toInteger()
+                    def patch = versionParts[2].toInteger()
+
+                    patch += 1
+
+                    def newVersion = "${major}.${minor}.${patch}"
+
+                    writeFile file: env.VERSION_FILE, text: newVersion
+
+                    env.NEW_VERSION = newVersion
+                }
+            }
+        }
+
         stage('Build') {
             steps {
                 bat 'dotnet build --configuration Release'
             }
         }
+
         stage('Publish') {
             steps {
                 bat 'dotnet publish --configuration Release --output C:\\Users\\Dejan.Ristevski\\Desktop\\aspnet_app\\publish'
@@ -27,8 +55,25 @@ pipeline {
                 }
             }
         }
+
+            post {
+            success {
+                script {
+                    sh 'git config user.email "dejanristevski96@gmail.com"'
+                    sh 'git config user.name "therdean"'
+
+                    sh 'git add VERSION'
+                    sh "git commit -m 'Increment version to ${env.NEW_VERSION}'"
+
+                    sh "git tag -a v${env.NEW_VERSION} -m 'Version ${env.NEW_VERSION}'"
+
+                    withCredentials([usernamePassword(credentialsId: 'your-credentials-id', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+                        sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/therdean/aspnet-mock.git main"
+                        sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/therdean/aspnet-mock.git --tags"
+                    }
+                }
+            }
+        }
     }
 }
-
-
 // robocopy C:\\Users\\Dejan.Ristevski\\Desktop\\aspnet_app\\publish ${backupDir} /e
