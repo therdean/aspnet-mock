@@ -65,11 +65,11 @@ pipeline {
                 bat 'git config user.name "therdean"'
 
                 bat 'git add VERSION'
-                bat "git commit -m 'Updated version'"
+                bat 'git commit -m "Updated version"'
 
                 bat "git tag -a v${env.NEW_VERSION} -m 'Version ${env.NEW_VERSION}'"
 
-                withCredentials([usernamePassword(credentialsId: 'your-credentials-id', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+                withCredentials([usernamePassword(credentialsId: '1cacd813-213e-4683-abbb-054b782a5e74', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                     bat "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/therdean/aspnet-mock.git main"
                     bat "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/therdean/aspnet-mock.git --tags"
                 }
