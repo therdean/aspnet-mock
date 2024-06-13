@@ -70,7 +70,7 @@ pipeline {
                 if (env.NEW_VERSION) {
                     bat "git tag -a v${env.NEW_VERSION} -m 'Version ${env.NEW_VERSION}'"
                 } else {
-                    bat 'git tag -a "v9.3" -m "Version 9.3"'
+                    bat 'git tag -a "v9.4" -m "Version 9.4"'
                 }
 
                 // withCredentials([usernamePassword(credentialsId: 'e4366e8a-e7be-413e-9c50-1901ccae74aa', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
@@ -78,7 +78,7 @@ pipeline {
                 //     bat "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/therdean/aspnet-mock.git --tags"
                 // }
 
-                withCredentials([sshUserPrivateKey(credentialsId: 'SSH_GITHUB', keyFileVariable: '', usernameVariable: 'GIT_USERNAME')]) {
+                withCredentials([sshUserPrivateKey(credentialsId: 'e4366e8a-e7be-413e-9c50-1901ccae74aa', keyFileVariable: '', usernameVariable: 'GIT_USERNAME')]) {
                     bat "GIT_SSH_COMMAND='${env.GIT_SSH_COMMAND}' git push origin main"
                     bat "GIT_SSH_COMMAND='${env.GIT_SSH_COMMAND}' git push origin --tags"
                 }
