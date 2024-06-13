@@ -68,7 +68,7 @@ pipeline {
                 bat 'git commit -m "Updated version"'
 
                 if (env.NEW_VERSION) {
-                    bat "git tag -a v${env.NEW_VERSION} -m 'Version ${env.NEW_VERSION}'"
+                    bat 'git tag -a v${env.NEW_VERSION} -m "Version ${env.NEW_VERSION}"'
                 } else {
                     bat 'git tag -a "v9.8" -m "Version 9.8"'
                 }
@@ -76,11 +76,10 @@ pipeline {
                 withCredentials([sshUserPrivateKey(credentialsId: 'e4366e8a-e7be-413e-9c50-1901ccae74aa', keyFileVariable: 'SSH_KEY')]) {
                     env.GIT_SSH_COMMAND = "C:\\Program Files\\Git\\usr\\bin\\ssh.exe -i ${SSH_KEY} -o StrictHostKeyChecking=no"
 
-                    bat '''
-                        set GIT_SSH_COMMAND=%GIT_SSH_COMMAND%
-                        git push origin main
-                        git push origin --tags
-                    '''
+                    bat 'set GIT_SSH_COMMAND=%GIT_SSH_COMMAND%'
+                    bat 'git push origin main'
+                    bat 'git push origin --tags'
+
                 }
             }
         }
