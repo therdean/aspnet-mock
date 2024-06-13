@@ -58,21 +58,22 @@ pipeline {
         }
     }
 
-    // post {
-    //     success {
-    //         script {
-    //             bat 'git config user.email "dejanristevski96@gmail.com"'
-    //             bat 'git config user.name "therdean"'
+    post {
+        success {
+            script {
+                bat 'git config user.email "dejanristevski96@gmail.com"'
+                bat 'git config user.name "therdean"'
 
-    //             bat "git commit -am 'Increment version to ${env.NEW_VERSION}'"
+                bat 'git add .'
+                bat "git commit -m 'Updated version'"
 
-    //             bat "git tag -a v${env.NEW_VERSION} -m 'Version ${env.NEW_VERSION}'"
+                bat "git tag -a v${env.NEW_VERSION} -m 'Version ${env.NEW_VERSION}'"
 
-    //             withCredentials([usernamePassword(credentialsId: 'your-credentials-id', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-    //                 bat "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/therdean/aspnet-mock.git main"
-    //                 bat "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/therdean/aspnet-mock.git --tags"
-    //             }
-    //         }
-    //     }
-    // }
+                withCredentials([usernamePassword(credentialsId: 'your-credentials-id', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+                    bat "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/therdean/aspnet-mock.git main"
+                    bat "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/therdean/aspnet-mock.git --tags"
+                }
+            }
+        }
+    }
 }
