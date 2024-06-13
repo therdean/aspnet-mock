@@ -64,8 +64,7 @@ pipeline {
                 bat 'git config user.email "dejanristevski96@gmail.com"'
                 bat 'git config user.name "therdean"'
 
-                bat 'git add VERSION'
-                bat "git commit -m 'Increment version to ${env.NEW_VERSION}'"
+                bat "git commit -am 'Increment version to ${env.NEW_VERSION}'"
 
                 bat "git tag -a v${env.NEW_VERSION} -m 'Version ${env.NEW_VERSION}'"
 
