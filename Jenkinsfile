@@ -2,38 +2,57 @@ pipeline {
     agent any
 
     environment {
-        VERSION_FILE = 'VERSION'
-        NEW_VERSION = ''
         REPO_URL = 'https://github.com/therdean/aspnet-mock.git'
+        VERSION_FILE = 'VERSION'
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: env.REPO_URL
-            }
-        }
-
-        stage('Read and Increment Version') {
-            steps {
-                script {
-                    def versionFile = readFile env.VERSION_FILE
-                    def versionParts = versionFile.trim().split('\\.')
-                    def major = versionParts[0].toInteger()
-                    def minor = versionParts[1].toInteger()
-                    def patch = versionParts[2].toInteger()
-
-                    patch += 1
-
-                    def newVersion = "${major}.${minor}.${patch}"
-
-                    writeFile file: env.VERSION_FILE, text: newVersion
-
-                    env.NEW_VERSION = newVersion
+                sshagent(['github-ssh-key']) {
+                    git branch: 'main', url: env.REPO_URL
                 }
             }
         }
 
+        stage('Determine version') {
+            steps {
+                script {
+                    def currentVersion = readFile(env.VERSION_FILE).trim()
+                    def versionParts = currentVersion.split('\\.')
+                    versionParts[-1] = (versionParts[-1] as int) + 1
+                    def newVersion = versionParts.join('.')
+                    env.VERSION_TAG = "v${newVersion}"
+                    writeFile file: env.VERSION_FILE, text: newVersion
+                }
+            }
+        }
+
+        stage('Commit Version') {
+            steps {
+                sshagent(['github-ssh-key']) {
+                    script {
+                        bat "git config user.name 'therdean'"
+                        bat "git config user.email 'dejanristevski96@gmail.com'"
+                        bat "git add ${env.VERSION_FILE}"
+                        bat "git commit -m 'Update version to ${env.VERSION_TAG}'"
+                        bit 'git push origin main'
+                    }
+                }
+            }
+        }
+
+        stage('Tag Version') {
+            steps {
+                sshagent(['github-ssh-key']) {
+                    script {
+                        def version = env.VERSION_TAG
+                        bat "git tag ${version}"
+                        bat "git push origin ${version}"
+                    }
+                }
+            }
+        }
         stage('Build') {
             steps {
                 bat 'dotnet build --configuration Release'
@@ -49,40 +68,14 @@ pipeline {
         stage('Backup') {
             steps {
                 script {
-                    def date = new Date().format('yyyyMMdd_HHmmss')
-                    def backupDir = "C:\\Users\\Dejan.Ristevski\\Desktop\\aspnet_app\\backups\\backup_${date}"
+                    def version = env.VERSION_TAG
+                    def backupDir = "C:\\Users\\Dejan.Ristevski\\Desktop\\aspnet_app\\backups\\backup_v_${version}"
                     bat "mkdir ${backupDir}"
                     bat "xcopy C:\\Users\\Dejan.Ristevski\\Desktop\\aspnet_app\\publish ${backupDir} /e /i /s"
                 }
             }
         }
     }
-
-    post {
-        success {
-            script {
-                bat 'git config user.email "dejanristevski96@gmail.com"'
-                bat 'git config user.name "therdean"'
-
-                bat 'git add VERSION'
-                bat 'git commit -m "Updated version"'
-
-                if (env.NEW_VERSION) {
-                    bat 'git tag -a v${env.NEW_VERSION} -m "Version ${env.NEW_VERSION}"'
-                } else {
-                    bat 'git tag -a "v9.9.1" -m "Version 9.8"'
-                }
-
-                withCredentials([sshUserPrivateKey(credentialsId: 'e4366e8a-e7be-413e-9c50-1901ccae74aa', keyFileVariable: 'SSH_KEY')]) {
-                    env.GIT_SSH_COMMAND = "C:\\Program Files\\Git\\usr\\bin\\ssh.exe -i ${SSH_KEY} -o StrictHostKeyChecking=no"
-
-                    bat 'set GIT_SSH_COMMAND=%GIT_SSH_COMMAND%'
-                    bat 'git push origin main'
-                    bat 'git push origin --tags'
-
-                }
-            }
-        }
-    }
 }
 
+github - ssh - key
