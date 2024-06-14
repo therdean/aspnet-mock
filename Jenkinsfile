@@ -38,6 +38,7 @@ pipeline {
                                 url: env.REPO_URL,
                                 branch: 'main',
                                 commitMessage: "Update version to ${env.VERSION_TAG}",
+                                file: env.VERSION_FILE,
                                 extensions: [[$class: 'CleanBeforeCheckout']]
                     }
                 }
