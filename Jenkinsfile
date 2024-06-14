@@ -30,13 +30,13 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'github-pat', usernameVariable: 'USERNAME', passwordVariable: 'TOKEN')]) {
                     script {
-                        sh """
+                        bat '''
                         git config --global user.name "therdean"
                         git config --global user.email "dejanristevski96@gmail.com"
                         git add .
-                        git commit -m "Update version to ${env.VERSION_TAG}"
-                        git push "https://\${GITHUB_USERNAME}:\${GITHUB_TOKEN}@github.com/therdean/aspnet-mock.git" main
-                        """
+                        git commit -m "Update version to %VERSION_TAG%"
+                        git push "https://%USERNAME%:%TOKEN%@github.com/therdean/aspnet-mock.git" main
+                        '''
                     }
                 }
             }
