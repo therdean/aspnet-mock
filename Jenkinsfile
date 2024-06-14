@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                sshagent(['github-ssh-key']) {
+                sshagent(credentials: ['github-ssh-key']) {
                     git branch: 'main', url: env.REPO_URL
                 }
             }
@@ -30,7 +30,7 @@ pipeline {
 
         stage('Commit Version') {
             steps {
-                sshagent(['github-ssh-key']) {
+                sshagent(credentials: ['github-ssh-key']) {
                     script {
                         bat "git config user.name 'therdean'"
                         bat "git config user.email 'dejanristevski96@gmail.com'"
@@ -44,7 +44,7 @@ pipeline {
 
         stage('Tag Version') {
             steps {
-                sshagent(['github-ssh-key']) {
+                sshagent(credentials: ['github-ssh-key']) {
                     script {
                         def version = env.VERSION_TAG
                         bat "git tag ${version}"
