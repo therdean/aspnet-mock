@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         REPO_URL = 'https://github.com/therdean/aspnet-mock.git'
-    VERSION_FILE = 'VERSION'
+        VERSION_FILE = 'VERSION'
     }
 
     stages {
@@ -17,10 +17,14 @@ pipeline {
             steps {
                 script {
                     def currentVersion = readFile(env.VERSION_FILE).trim()
+                    echo "Current Version: ${currentVersion}"
+
                     def versionParts = currentVersion.split('\\.')
                     versionParts[-1] = (versionParts[-1] as int) + 1
                     def newVersion = versionParts.join('.')
                     env.VERSION_TAG = "v${newVersion}"
+                    echo "New Version: ${newVersion}"
+
                     writeFile file: env.VERSION_FILE, text: newVersion
                 }
             }
