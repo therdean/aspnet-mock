@@ -32,7 +32,7 @@ pipeline {
                     script {
                         bat "git config user.name 'therdean'"
                         bat "git config user.email 'dejanristevski96@gmail.com'"
-                        bat "git add ${env.VERSION_FILE}"
+                        bat 'git add .'
                         bat "git commit -m 'Update version to ${env.VERSION_TAG}'"
                         bit 'git push https://${env.USERNAME}:${env.TOKEN}@github.com/therdean/aspnet-mock.git main'
                     }
