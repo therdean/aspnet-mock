@@ -9,9 +9,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                sshagent(credentials: ['github-ssh-key']) {
-                    git branch: 'main', url: env.REPO_URL
-                }
+                git branch: 'main', url: env.REPO_URL
             }
         }
 
@@ -30,13 +28,13 @@ pipeline {
 
         stage('Commit Version') {
             steps {
-                sshagent(credentials: ['github-ssh-key']) {
+                withCredentials([usernamePassword(credentialsId: 'github-pat', usernameVariable: 'USERNAME', passwordVariable: 'TOKEN')]) {
                     script {
                         bat "git config user.name 'therdean'"
                         bat "git config user.email 'dejanristevski96@gmail.com'"
                         bat "git add ${env.VERSION_FILE}"
                         bat "git commit -m 'Update version to ${env.VERSION_TAG}'"
-                        bit 'git push origin main'
+                        bit 'git push https://${env.USERNAME}:${env.TOKEN}@github.com/therdean/aspnet-mock.git main'
                     }
                 }
             }
@@ -44,11 +42,11 @@ pipeline {
 
         stage('Tag Version') {
             steps {
-                sshagent(credentials: ['github-ssh-key']) {
+                withCredentials([usernamePassword(credentialsId: 'github-pat', usernameVariable: 'USERNAME', passwordVariable: 'TOKEN')]) {
                     script {
                         def version = env.VERSION_TAG
                         bat "git tag ${version}"
-                        bat "git push origin ${version}"
+                        bat "git push https://${env.USERNAME}:${env.TOKEN}@github.com/therdean/aspnet-mock.git ${version}"
                     }
                 }
             }
