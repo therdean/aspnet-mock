@@ -22,7 +22,7 @@ pipeline {
                     def versionParts = currentVersion.split('\\.')
                     versionParts[-1] = (versionParts[-1] as int) + 1
                     def newVersion = versionParts.join('.')
-                    env.VERSION_TAG = "${newVersion}"
+                    env.VERSION_TAG = "v${newVersion}"
                     echo "New Version: ${newVersion}"
 
                     writeFile file: env.VERSION_FILE, text: newVersion
@@ -74,7 +74,7 @@ pipeline {
                     def version = env.VERSION_TAG
                     // def time = new Date().format('HH-mm')
                     // def backupDir = "C:\\Users\\Dejan.Ristevski\\Desktop\\aspnet_app\\backups\\backup_${time}"
-                    def backupDir = "C:\\Users\\Dejan.Ristevski\\Desktop\\aspnet_app\\backups\\backup_v${version}"
+                    def backupDir = "C:\\Users\\Dejan.Ristevski\\Desktop\\aspnet_app\\backups\\backup_${version}"
                     bat "mkdir ${backupDir}"
                     bat "xcopy C:\\Users\\Dejan.Ristevski\\Desktop\\aspnet_app\\publish ${backupDir} /e /i /s"
                 }
