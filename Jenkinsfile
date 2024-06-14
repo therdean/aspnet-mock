@@ -30,9 +30,6 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'github-pat', usernameVariable: 'USERNAME', passwordVariable: 'TOKEN')]) {
                     script {
-                        // Use the built-in git plugin to commit and push the changes.
-                        // This is safer than using the bat command because it
-                        // automatically escapes the username and password.
                         git credentialsId: 'github-pat',
                                 url: env.REPO_URL,
                                 branch: 'main',
@@ -49,11 +46,12 @@ pipeline {
                     script {
                         def version = env.VERSION_TAG
                         bat "git tag ${version}"
-                        bat "git push https://${env.USERNAME}:${env.TOKEN}@github.com/therdean/aspnet-mock.git ${version}"
+                        bat "git push https://$env.USERNAME:$env.TOKEN@github.com/therdean/aspnet-mock.git ${version}"
                     }
                 }
             }
         }
+        
         stage('Build') {
             steps {
                 bat 'dotnet build --configuration Release'
