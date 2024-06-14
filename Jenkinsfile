@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         REPO_URL = 'https://github.com/therdean/aspnet-mock.git'
-        VERSION_FILE = 'VERSION'
+        VERSION_FILE = './VERSION'
     }
 
     stages {
