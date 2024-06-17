@@ -87,7 +87,8 @@ pipeline {
         always {
             emailext body: 'Test Message',
             subject: 'Test Subject',
-            to: 'dejan.ristevski@iwconnect.com'
+            to: 'dejan.ristevski@iwconnect.com',
+            attachlog: true
         }
     }
 }
