@@ -4,6 +4,7 @@ pipeline {
     environment {
         REPO_URL = 'https://github.com/therdean/aspnet-mock.git'
         VERSION_FILE = 'VERSION'
+        RECIPIENTS = 'dejan.ristevski@iwconnect.com'
     }
 
     stages {
@@ -78,6 +79,23 @@ pipeline {
                     bat "mkdir ${backupDir}"
                     bat "xcopy C:\\Users\\Dejan.Ristevski\\Desktop\\aspnet_app\\publish ${backupDir} /e /i /s"
                 }
+            }
+        }
+    }
+
+    post {
+        always {
+            script {
+                def currentBuildResult = currentBuild.result ?: 'SUCCESS'
+                emailext(
+                    to: env.RECIPIENTS,
+                    subject: "Jenkins Pipeline: ${currentBuild.fullDisplayName} - ${currentBuildResult}",
+                    body: """\
+                    <p>Build ${currentBuild.fullDisplayName} completed with status: ${currentBuildResult}</p>
+                    <p>Check console output at ${env.BUILD_URL} to view the results.</p>
+                    """,
+                    mimeType: 'text/html'
+                )
             }
         }
     }
