@@ -51,7 +51,7 @@ pipeline {
                     script {
                         def version = env.VERSION_TAG
                         bat "git tag ${version}"
-                        bat 'git push https://%USERNAME%:%TOKEN%@github.com/therdean/aspnet-mock.git ${version}'
+                        bat "git push https://%USERNAME%:%TOKEN%@github.com/therdean/aspnet-mock.git ${version}"
                     }
                 }
             }
@@ -84,11 +84,20 @@ pipeline {
     }
 
     post {
-        always {
-            emailext body: 'Test Message',
-            subject: 'Test Subject',
+        success {
+            emailext body: "Success ${JOB_NAME}",
+            subject: 'Pipeline Success',
             to: 'dejan.ristevski@iwconnect.com',
-            attachLog: true
+            attachLog: true,
+            compressLog: true
+        }
+
+        failure {
+            emailext body: "Failure ${JOB_NAME}",
+            subject: 'Pipeline Failure',
+            to: 'dejan.ristevski@iwconnect.com',
+            attachLog: true,
+            compressLog: true
         }
     }
 }
