@@ -89,7 +89,7 @@ pipeline {
             subject: 'Pipeline Success',
             to: 'dejan.ristevski@iwconnect.com',
             attachLog: true,
-            compressLog: true
+            compressLog: false
         }
 
         failure {
@@ -97,7 +97,7 @@ pipeline {
             subject: 'Pipeline Failure',
             to: 'dejan.ristevski@iwconnect.com',
             attachLog: true,
-            compressLog: true
+            compressLog: false
         }
     }
 }
