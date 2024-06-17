@@ -51,7 +51,7 @@ pipeline {
                     script {
                         def version = env.VERSION_TAG
                         bat "git tag ${version}"
-                        bat "git push https://%USERNAME%:%TOKEN%@github.com/therdean/aspnet-mock.git ${version}"
+                        bat 'git push https://%USERNAME%:%TOKEN%@github.com/therdean/aspnet-mock.git ${version}'
                     }
                 }
             }
