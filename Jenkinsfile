@@ -84,8 +84,10 @@ pipeline {
     }
 
     post {
-        emailext body: 'Test Message',
+        always {
+            emailext body: 'Test Message',
             subject: 'Test Subject',
             to: 'dejan.ristevski@iwconnect.com'
+        }
     }
 }
