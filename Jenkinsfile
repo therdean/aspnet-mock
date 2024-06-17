@@ -36,9 +36,9 @@ pipeline {
                     script {
                         bat 'git config --global user.name "therdean"'
                         bat 'git config --global user.email "dejanristevski96@gmail.com"'
-                        bat "git add $env.VERSION_FILE"
-                        bat "git commit -m \"Update version to $env.VERSION_TAG\""
-                        bat "git push https://$env.USERNAME:$env.TOKEN@github.com/therdean/aspnet-mock.git main"
+                        bat 'git add $env.VERSION_FILE'
+                        bat 'git commit -m \"Update version to $env.VERSION_TAG\"'
+                        bat 'git push https://$env.USERNAME:$env.TOKEN@github.com/therdean/aspnet-mock.git main'
                     }
                 }
             }
@@ -49,8 +49,8 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'github-pat', usernameVariable: 'USERNAME', passwordVariable: 'TOKEN')]) {
                     script {
                         def version = env.VERSION_TAG
-                        bat "git tag ${version}"
-                        bat "git push https://$env.USERNAME:$env.TOKEN@github.com/therdean/aspnet-mock.git ${version}"
+                        bat 'git tag ${version}'
+                        bat 'git push https://$env.USERNAME:$env.TOKEN@github.com/therdean/aspnet-mock.git ${version}'
                     }
                 }
             }
