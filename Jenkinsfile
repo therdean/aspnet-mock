@@ -22,7 +22,7 @@ pipeline {
                     def versionParts = currentVersion.split('\\.')
                     versionParts[-1] = (versionParts[-1] as int) + 1
                     def newVersion = versionParts.join('.')
-                    env.VERSION_TAG = "v${newVersion}"
+                    VERSION_TAG = "v${newVersion}"
                     echo "New Version: ${newVersion}"
 
                     writeFile file: env.VERSION_FILE, text: newVersion
@@ -36,8 +36,8 @@ pipeline {
                     script {
                         bat 'git config --global user.name "therdean"'
                         bat 'git config --global user.email "dejanristevski96@gmail.com"'
-                        bat 'git add $env.VERSION_FILE'
-                        bat 'git commit -m \"Update version to $env.VERSION_TAG\"'
+                        bat 'git add %VERSION_FILE%'
+                        bat 'git commit -m \"Update version to %VERSION_TAG%\"'
                         bat 'git push https://$env.USERNAME:$env.TOKEN@github.com/therdean/aspnet-mock.git main'
                     }
                 }
@@ -50,7 +50,7 @@ pipeline {
                     script {
                         def version = env.VERSION_TAG
                         bat 'git tag ${version}'
-                        bat 'git push https://$env.USERNAME:$env.TOKEN@github.com/therdean/aspnet-mock.git ${version}'
+                        bat 'git push https://%USERNAME%:%TOKEN%@github.com/therdean/aspnet-mock.git ${version}'
                     }
                 }
             }
