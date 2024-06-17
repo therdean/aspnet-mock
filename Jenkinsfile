@@ -84,19 +84,8 @@ pipeline {
     }
 
     post {
-        always {
-            script {
-                def currentBuildResult = currentBuild.result ?: 'SUCCESS'
-                emailext(
-                    to: env.RECIPIENTS,
-                    subject: "Jenkins Pipeline: ${currentBuild.fullDisplayName} - ${currentBuildResult}",
-                    body: """\
-                    <p>Build ${currentBuild.fullDisplayName} completed with status: ${currentBuildResult}</p>
-                    <p>Check console output at ${env.BUILD_URL} to view the results.</p>
-                    """,
-                    mimeType: 'text/html'
-                )
-            }
-        }
+        emailext body: 'Test Message',
+            subject: 'Test Subject',
+            to: 'dejan.ristevski@iwconnect.com'
     }
 }
