@@ -38,7 +38,7 @@ pipeline {
                         bat 'git config --global user.email "dejanristevski96@gmail.com"'
                         bat 'git add %VERSION_FILE%'
                         bat 'git commit -m \"Update version to %VERSION_TAG%\"'
-                        bat 'git push https://$env.USERNAME:$env.TOKEN@github.com/therdean/aspnet-mock.git main'
+                        bat 'git push https://%USERNAME%:%TOKEN%@github.com/therdean/aspnet-mock.git main'
                     }
                 }
             }
