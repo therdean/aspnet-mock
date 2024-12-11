@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "w6gBTJOK/qA=",
+  "dgSpecHash": "LrpHyNgmdD4=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Dejan.Ristevski\\Documents\\aspnet_mock\\aspnet_mock.csproj",
+  "projectFilePath": "C:\\Users\\Dejan.Ristevski\\Documents\\Development\\aspnet_mock\\aspnet_mock.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Dejan.Ristevski\\.nuget\\packages\\google.protobuf\\3.5.1\\google.protobuf.3.5.1.nupkg.sha512",
     "C:\\Users\\Dejan.Ristevski\\.nuget\\packages\\microsoft.netcore.platforms\\2.0.0\\microsoft.netcore.platforms.2.0.0.nupkg.sha512",
